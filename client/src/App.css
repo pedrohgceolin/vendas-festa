@@ -1,0 +1,437 @@
+/* client/src/App.css */
+
+/* Reset básico para garantir que tudo ocupe 100% da altura */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilo base para a página inteira */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #282c34; /* Fundo escuro padrão */
+}
+
+/* Container principal para a tela de login/registro */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 1.5rem;
+  background: linear-gradient(-45deg, #e0e960, #e1e971, #616442, #0f0f0e);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Estilo do formulário em si */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: rgba(40, 44, 52, 0.85);
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  max-width: 400px;
+  min-width: 300px;
+  width: 90%;
+  
+  /* 👇👇 ESTA É A LINHA QUE CENTRALIZA O FORMULÁRIO 👇👇 */
+  margin: 2rem auto; /* 2rem de margem em cima/embaixo, auto nas laterais */
+}
+
+.auth-form h2 {
+  color: white;
+  margin: 0 0 1rem 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Estilo dos campos de texto (input) */
+.auth-form input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #5a5f6a;
+  color: white;
+  padding: 10px 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-bottom-color: #c9cc17; /* Cor de destaque do React */
+}
+
+/* Estilo do botão principal */
+.auth-form button[type="submit"] {
+  background-color: #61dafb;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  color: #282c34;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+}
+
+.auth-form button[type="submit"]:hover {
+  background-color: #23a6d5;
+}
+
+/* Estilo do botão para alternar entre login e registro */
+.toggle-auth {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 0.9rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  font-weight: bold; /* Deixa o texto em negrito */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); /* Adiciona uma sombra para dar contraste */
+}
+
+.toggle-auth:hover {
+  text-decoration: underline;
+}
+
+/* Estilo para mensagens de erro e sucesso */
+.feedback-message {
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+}
+.error {
+  color: white;
+  background-color: rgba(255, 82, 82, 0.8);
+}
+.success {
+  color: white;
+  background-color: rgba(76, 175, 80, 0.8);
+}
+
+/* client/src/App.css */
+
+.admin-panel {
+  border: 1px solid #5a5f6a;
+  background-color: rgba(40, 44, 52, 0.5);
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-width: 800px;
+  color: white;
+}
+
+.user-list {
+  list-style: none;
+  padding: 0;
+}
+
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #444;
+}
+
+.user-item:last-child {
+  border-bottom: none;
+}
+
+.user-item span {
+  font-weight: bold;
+}
+
+.permission-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.permission-toggle input[type="checkbox"] {
+  width: 1.2em;
+  height: 1.2em;
+  cursor: pointer;
+}
+
+/* client/src/App.css */
+
+.product-manager {
+  border: 1px solid #5a5f6a;
+  background-color: rgba(40, 44, 52, 0.5);
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-width: 800px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.product-form input {
+  background: transparent;
+  border: 1px solid #5a5f6a;
+  color: white;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.product-form button {
+  background-color: #c9cc17;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  color: #282c34;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.product-form button:hover {
+  background-color: #a1a312;
+}
+
+.product-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.product-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border-bottom: 1px solid #444;
+}
+
+.product-list li:last-child {
+  border-bottom: none;
+}
+
+.caixa-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Padrão para telas grandes: 2 colunas */
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* 👇👇 ADICIONE ESTA MEDIA QUERY 👇👇 */
+@media (max-width: 768px) { /* Para telas com largura máxima de 768px (tablets e celulares) */
+  .caixa-container {
+    grid-template-columns: 1fr; /* Altera para 1 coluna */
+    grid-template-rows: auto auto; /* Produtos em cima, Carrinho embaixo */
+    padding: 1rem; /* Reduz o padding para não ocupar muito espaço */
+    gap: 1.5rem; /* Reduz o espaçamento entre as seções */
+  }
+
+  /* Ajustes para a ordem em telas pequenas: produtos primeiro, depois carrinho */
+  .produtos-grid {
+    order: 1; /* Coloca a grade de produtos primeiro */
+  }
+  .carrinho {
+    order: 2; /* Coloca o carrinho segundo */
+  }
+}
+ /* client/src/App.css */
+
+.produtos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Padrão para telas grandes */
+  gap: 1rem;
+}
+
+/* 👇👇 ADICIONE ESTA MEDIA QUERY 👇👇 */
+@media (max-width: 768px) {
+  .produtos-grid {
+    /* Permite que os cards fiquem um pouco menores em telas muito pequenas */
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
+    gap: 0.75rem; /* Reduz o espaçamento entre os cards */
+  }
+}
+.produto-card { /* Reutilizando e adaptando o estilo que já tínhamos */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  background-color: white;
+  color: #282c34;
+  font-size: 1rem;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.produto-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+.produto-card h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+.produto-card p {
+  margin: 0;
+  font-weight: bold;
+  color: green;
+}
+
+.carrinho {
+  background-color: #3a3f4a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.carrinho h2 {
+  color: white;
+  margin-top: 0;
+}
+
+.carrinho-lista {
+  list-style: none;
+  padding: 0;
+  flex-grow: 1; /* Faz a lista ocupar o espaço disponível */
+}
+
+.carrinho-lista li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  color: #eee;
+}
+
+.carrinho-total {
+  border-top: 2px dashed #eee;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  text-align: right;
+  font-size: 1.8rem;
+  color: #61dafb;
+}
+
+.carrinho-acoes {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.carrinho-acoes button {
+  padding: 1rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-finalizar {
+  background-color: #4CAF50; /* Verde */
+  color: white;
+}
+.btn-limpar {
+  background-color: #f44336; /* Vermelho */
+  color: white;
+}
+
+.post-venda-acoes {
+  margin-top: 1.5rem;
+  border-top: 1px solid #5a5f6a;
+  padding-top: 1.5rem;
+}
+
+.btn-imprimir {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #5bc0de; /* Azul claro */
+  color: white;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #282c34;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #5a5f6a;
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-content h3 {
+  margin: 0;
+  color: white;
+}
+
+.modal-content textarea {
+  width: 100%;
+  min-height: 200px;
+  background-color: #3a3f4a;
+  color: white;
+  border: 1px solid #5a5f6a;
+  border-radius: 5px;
+  font-family: monospace;
+}
+
+.modal-content button {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #61dafb;
+  color: #282c34;
+  font-weight: bold;
+  cursor: pointer;
+}
