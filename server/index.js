@@ -4,6 +4,8 @@ const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
 const bcrypt = require("bcrypt"); // <-- ADICIONE ESTA LINHA
 const path = require("path");
+const https = require("https"); // <-- ADICIONE
+const fs = require("fs"); // <-- ADICIONE
 
 const saltRounds = 10; // Fator de complexidade da criptografia
 
@@ -58,6 +60,11 @@ const db = new sqlite3.Database("./database.db", (err) => {
         )
     `);
 });
+
+const options = {
+  key: fs.readFileSync("./localhost+2-key.pem"), // <-- MUDE PARA O NOME DO SEU ARQUIVO DE CHAVE
+  cert: fs.readFileSync("./localhost+2.pem"), // <-- MUDE PARA O NOME DO SEU ARQUIVO DE CERTIFICADO
+};
 
 // Middleware para servir os arquivos estáticos da pasta 'dist' do cliente
 app.use(express.static(path.join(__dirname, "../client/dist")));
@@ -260,8 +267,14 @@ app.get(/^(?!\/api).*/, (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
 });
 
-app.listen(port, "0.0.0.0", () => {
-  console.log(
-    `Servidor rodando. Acesse de outros dispositivos em: http://192.168.3.9:${port}`
-  );
+const httpsServer = https.createServer(options, app);
+
+httpsServer.listen(port, "0.0.0.0", () => {
+  console.log(`Servidor HTTPS rodando! Acesse em: https://192.168.3.9:${port}`);
 });
+
+// app.listen(port, "0.0.0.0", () => {
+//   console.log(
+//     `Servidor rodando. Acesse de outros dispositivos em: http://192.168.3.9:${port}`
+//   );
+// });

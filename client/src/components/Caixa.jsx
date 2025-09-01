@@ -120,7 +120,7 @@ export default function Caixa({ user }) {
             // Tenta executar o compartilhamento
             await navigator.share({
                 title: `Ticket Venda #${ultimaVenda.id}`,
-                text: ticketText,
+                text: ticketsConcatenados,
             });
             alert('3. Sucesso: A janela de compartilhamento deveria ter aparecido.');
         } catch (error) {
@@ -132,10 +132,10 @@ export default function Caixa({ user }) {
         alert('2b. ERRO: seu navegador NÃO SUPORTA navigator.share.');
         // (A lógica de fallback para desktop entra aqui)
         if (navigator.clipboard && window.isSecureContext) {
-            await navigator.clipboard.writeText(ticketText);
+            await navigator.clipboard.writeText(ticketsConcatenados);
             alert('Texto do ticket copiado para a área de transferência!');
         } else {
-            setTicketParaCopiar(ticketText);
+            setTicketParaCopiar(ticketsConcatenados);
         }
     }
   };
