@@ -1,8 +1,10 @@
 // client/src/components/MainApp.jsx
 import { useState, useEffect } from 'react';
-import AdminPanel from './AdminPanel'; // Importe o componente
+import AdminPanel from './adminPanel';
 import ProductManager from './ProductManager';
 import Caixa from './Caixa';
+import Dashboard from './Dashboard';
+import Relatorios from './Relatorios';
 // Futuramente, aqui teremos a tela de produtos, vendas e o painel de admin.
 
 export default function MainApp({ user, onLogout }) {
@@ -16,10 +18,12 @@ export default function MainApp({ user, onLogout }) {
         </div>
       </header>
       <main>
-        <Caixa user={user} />
+        {user.isAdmin === 1 && <Dashboard />}
+        {user.isAdmin === 0 && <Caixa user={user} />}
         <hr style={{width: '80%', borderColor: '#555'}} />
         {user.podeCadastrarProdutos === 1 && <ProductManager />}
         {user.isAdmin === 1 && <AdminPanel />}
+        {user.isAdmin === 1 && <Relatorios />}
       </main>
     </div>
   );

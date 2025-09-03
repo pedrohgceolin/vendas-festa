@@ -5,28 +5,36 @@ const API_URL='';
 
 export default function AdminPanel() {
   const [users, setUsers] = useState([]);
+  const [metodosPagamento, setMetodosPagamento] = useState([]); // <-- NOVO: Estado para pagamentos
+  const [novoMetodo, setNovoMetodo] = useState(''); // <-- NOVO: Estado para o input
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // 👇 ADICIONE ESTE useEffect 👇
+
+  // Busca usuários e métodos de pagamento
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchUsersAndPayments = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/users`);
-        if (!response.ok) {
-          throw new Error('Não foi possível buscar os usuários.');
+        const usersResponse = await fetch(`${API_URL}/api/users`);
+        const paymentsResponse = await fetch(`${API_URL}/api/pagamentos`);
+
+        if (!usersResponse.ok || !paymentsResponse.ok) {
+          throw new Error('Falha ao buscar dados do painel.');
         }
-        const data = await response.json();
-        setUsers(data);
+
+        const usersData = await usersResponse.json();
+        const paymentsData = await paymentsResponse.json();
+
+        setUsers(usersData);
+        setMetodosPagamento(paymentsData);
       } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchUsers();
-  }, []); // O [] vazio garante que isso rode apenas uma vez
+    fetchUsersAndPayments();
+  }, []);
 
   const handlePermissionChange = async (userToUpdate) => {
   const newPermissionStatus = userToUpdate.podeCadastrarProdutos === 1 ? 0 : 1;
@@ -59,6 +67,28 @@ export default function AdminPanel() {
   }
 };
 
+const handleAddMetodo = async (e) => {
+    e.preventDefault();
+    if (!novoMetodo) return;
+
+    try {
+      const response = await fetch(`${API_URL}/api/pagamentos`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: novoMetodo }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error);
+
+      setMetodosPagamento([...metodosPagamento, data]);
+      setNovoMetodo('');
+      alert('Método de pagamento adicionado!');
+    } catch (err) {
+      alert(`Erro: ${err.message}`);
+    }
+  };
+
 //   // Lógica para alterar a permissão (será criada no próximo passo)
 //   const handlePermissionChange = (userToUpdate) => {
 //     console.log("Alterar permissão para:", userToUpdate);
@@ -70,6 +100,23 @@ export default function AdminPanel() {
   return (
     <div className="admin-panel">
       <h2>Painel do Administrador</h2>
+       <div className="admin-section">
+        <h3>Métodos de Pagamento</h3>
+        <form onSubmit={handleAddMetodo} className="admin-form">
+          <input 
+            type="text" 
+            value={novoMetodo} 
+            onChange={(e) => setNovoMetodo(e.target.value)} 
+            placeholder="Ex: Pix, Cartão, Dinheiro" 
+            required 
+          />
+          <button type="submit">Adicionar</button>
+        </form>
+        <ul className="admin-list">
+          {metodosPagamento.map(m => <li key={m.id}>{m.nome}</li>)}
+        </ul>
+      </div>
+
       <p>Gerenciar permissões de usuários.</p>
       
       {/* 👇 ADICIONE A LISTA DE USUÁRIOS 👇 */}

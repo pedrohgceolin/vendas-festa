@@ -435,3 +435,175 @@ body {
   font-weight: bold;
   cursor: pointer;
 }
+
+/* client/src/App.css */
+.admin-section {
+  border: 1px solid #5a5f6a;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.admin-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.admin-form input {
+  flex-grow: 1;
+  padding: 8px;
+}
+.admin-form button {
+  padding: 8px;
+}
+.admin-list {
+  list-style-type: none;
+  padding: 0;
+}
+.admin-list li {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.payment-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+.payment-button {
+  background-color: #61dafb;
+  color: #282c34;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  flex-grow: 1;
+}
+.payment-button:hover {
+  background-color: #23a6d5;
+}
+.btn-cancelar {
+  margin-top: 1rem;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+}
+.dashboard {
+  background-color: #1e2128;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 0 auto 2rem auto;
+  max-width: 1400px;
+  color: white;
+}
+.stats-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+.stat-card {
+  background-color: #282c34;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #444;
+}
+.stat-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #61dafb;
+  font-size: 1rem;
+}
+.stat-card p {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.reports-panel {
+  background-color: #f9f9f9;
+  color: #282c34;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 800px;
+  border-radius: 8px;
+}
+
+.reports-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.btn-pdf {
+  background-color: #c0392b;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#report-content h1, #report-content h2 {
+  color: #333;
+}
+
+#report-content section {
+  margin-bottom: 2rem;
+}
+
+#report-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#report-content th, #report-content td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#report-content th {
+  background-color: #f2f2f2;
+}
+
+.venda-detalhe {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+.venda-detalhe h4 {
+  margin-top: 0;
+}
+
+.pdf-export-mode {
+  background-color: white !important; /* Garante fundo branco se necessário */
+}
+
+/* Força todos os elementos de texto dentro do relatório a serem pretos
+   quando o modo de exportação estiver ativo */
+.pdf-export-mode #report-content,
+.pdf-export-mode #report-content h1,
+.pdf-export-mode #report-content h2,
+.pdf-export-mode #report-content h3,
+.pdf-export-mode #report-content h4,
+.pdf-export-mode #report-content p,
+.pdf-export-mode #report-content td,
+.pdf-export-mode #report-content li {
+  color: black !important;
+}
+
+/* Garante que a borda da tabela seja visível */
+.pdf-export-mode #report-content th,
+.pdf-export-mode #report-content td {
+  border: 1px solid #333;
+}
