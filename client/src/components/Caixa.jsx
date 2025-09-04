@@ -1,6 +1,7 @@
 // client/src/components/Caixa.jsx
 import { useState, useEffect } from 'react';
 import PagamentoModal from './PagamentoModal';
+import jsPDF from 'jspdf';
 
 
 const API_URL='';
@@ -86,20 +87,17 @@ export default function Caixa({ user }) {
     setModalAberto(true);
   };
 
-  // 👇 NOVA FUNÇÃO PARA GERAR O TEXTO E COMPARTILHAR 👇
-  const handleImprimir = async () => {
-    console.log('entrou handleimprimir');
+  const handleSharePrint = async () => {
+    console.log('entrou handleDharePrint');
     if (!ultimaVenda) return;
 
-    // 1. Inicializa uma string vazia que vai acumular todos os tickets
     let ticketsConcatenados = '';
-
-    // 2. Itera sobre cada TIPO de produto no carrinho da última venda (ex: Cerveja, depois Água)
+    
     ultimaVenda.itens.forEach(item => {
         // 3. Itera baseado na QUANTIDADE de cada produto (ex: se item.quantidade for 3, roda 3 vezes)
         for (let i = 0; i < item.quantidade; i++) {
             // 4. Monta o texto para UM ÚNICO TICKET/VALE
-            ticketsConcatenados += '      NOME DA FESTA\n';
+            ticketsConcatenados += '      CALOURAAACA\n';
             ticketsConcatenados += '--------------------------------\n';
             ticketsConcatenados += `Venda #${ultimaVenda.id} | Caixa: ${user.username}\n\n`;
             
@@ -112,29 +110,69 @@ export default function Caixa({ user }) {
             ticketsConcatenados += '\n\n\n\n'; 
         }
     });
- 
-    // 5. A lógica de compartilhar ou copiar continua a mesma, mas agora com os tickets concatenados
+
     if (navigator.share) {
-        try {
-            // Tenta executar o compartilhamento
-            await navigator.share({
-                title: `Ticket Venda #${ultimaVenda.id}`,
-                text: ticketsConcatenados,
-            });
-        } catch (error) {
-            // Se o usuário cancelar ou se houver um erro, ele entra aqui
-            alert(`4. ERRO ou CANCELAMENTO: ${error.name} - ${error.message}`);
-        }
+      try {
+        await navigator.share({
+          title: `Ticket Venda #${ultimaVenda.id}`,
+          text: ticketsConcatenados,
+        });
+      } catch (error) {
+        console.error('Erro ou cancelamento no compartilhamento:', error);
+      }
     } else {
-        // Se a API não existir, ele vai para o fallback
-        if (navigator.clipboard && window.isSecureContext) {
-            await navigator.clipboard.writeText(ticketsConcatenados);
-            alert('Texto do ticket copiado para a área de transferência!');
-        } else {
-            setTicketParaCopiar(ticketsConcatenados);
-        }
+      alert('A função de compartilhamento não está disponível neste navegador.');
     }
   };
+
+  const handlePdfPrint = () => {
+    if (!ultimaVenda) return;
+
+    console.log("Modo de impressão: Desktop (via PDF)");
+
+      const ticketWidth = 226; // 80mm
+      const ticketHeight = 1000;
+      const doc = new jsPDF({
+        orientation: 'portrait',
+        unit: 'pt',
+        format: [ticketWidth, ticketHeight]
+      });
+
+      let y = 20;
+      const margin = 10;
+
+      ultimaVenda.itens.forEach(item => {
+        for (let i = 0; i < item.quantidade; i++) {
+          doc.setFontSize(10);
+          doc.setFont(undefined, 'bold');
+          doc.text('CALOURAAACA', ticketWidth / 2, y, { align: 'center' });
+          y += 15;
+          doc.setFontSize(8);
+          doc.setFont(undefined, 'normal');
+          doc.text('-------------------------------------------', ticketWidth / 2, y, { align: 'center' });
+          y += 15;
+          doc.text(`Venda #${ultimaVenda.id} | Caixa: ${user.username}`, margin, y);
+          y += 20;
+          doc.setFontSize(14);
+          doc.setFont(undefined, 'bold');
+          doc.text(`VALE 1x ${item.nome.toUpperCase()}`, ticketWidth / 2, y, { align: 'center' });
+          y += 20;
+          doc.text('-------------------------------------------', ticketWidth / 2, y, { align: 'center' });
+          y += 30;
+        }
+      });
+      
+      doc.output('dataurlnewwindow');
+  };
+
+  // // A função de finalizar a venda continua a mesma, sem a lógica de impressão
+  // const handleFinalizarVendaComPagamento = async (metodoPagamentoId) => {
+  //     setUltimaVenda({ id: data.vendaId, total, itens: carrinho });
+  //     setCarrinho([]);
+  // };
+
+  
+  
 
   return (
     <div className="caixa-container">
@@ -163,6 +201,7 @@ export default function Caixa({ user }) {
           <button onClick={handleOpenPagamentoModal} className="btn-finalizar">Finalizar Venda</button>
           <button onClick={limparCarrinho} className="btn-limpar">Limpar</button>
         </div>
+        
         {modalAberto && (
         <PagamentoModal 
           total={total}
@@ -172,9 +211,15 @@ export default function Caixa({ user }) {
       )}
         {ultimaVenda && (
           <div className="post-venda-acoes">
-            <button onClick={handleImprimir} className="btn-imprimir">
-              Imprimir Ticket da Venda #{ultimaVenda.id}
-            </button>
+            <h4>Imprimir Tickets (Venda #{ultimaVenda.id})</h4>
+            <div className="print-options">
+              <button onClick={handleSharePrint} className="btn-imprimir-share">
+                📱 Imprimir via Celular (Compartilhar)
+              </button>
+              <button onClick={handlePdfPrint} className="btn-imprimir-pdf">
+                🖨️ Imprimir via PC (Gerar PDF)
+              </button>
+            </div>
           </div>
         )}
       </div>
