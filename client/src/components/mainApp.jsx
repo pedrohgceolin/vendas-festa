@@ -21,7 +21,7 @@ export default function MainApp({ user, onLogout }) {
         {user.isAdmin === 1 && <Dashboard />}
         {user.isAdmin === 0 && <Caixa user={user} />}
         <hr style={{width: '80%', borderColor: '#555'}} />
-        {user.podeCadastrarProdutos === 1 && <ProductManager />}
+        {user.isAdmin === 1 && <ProductManager />}
         {user.isAdmin === 1 && <AdminPanel />}
         {user.isAdmin === 1 && <Relatorios />}
       </main>

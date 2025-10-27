@@ -640,3 +640,26 @@ body {
 .btn-imprimir-pdf {
   background-color: #f0ad4e; /* Laranja */
 }
+
+.admin-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.25rem;
+}
+.btn-delete-small {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.chart-container {
+  max-width: 700px; /* Limita a largura do gráfico na tela */
+  margin: 1rem auto; /* Centraliza o container */
+}
